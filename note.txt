@@ -1,0 +1,40 @@
+        Create the project
+mkdir e-commerce-products
+cd e-commerce-products
+npm init -y
+code .
+        Install dependencies
+npm i express cors zod prisma @prisma/client
+npm i -D typescript ts-node-dev @types/node @types/express
+
+         create a tsconfig.json file
+{
+"compilerOptions": {
+"target": "ES2020",
+"module": "commonjs",
+"rootDir": "src",
+"outDir": "dist",
+"strict": true,
+"esModuleInterop": true,
+"forceConsistentCasingInFileNames": true,
+"skipLibCheck": true
+},
+"include": ["src"]
+}
+
+add this to the package.json
+"scripts": {
+"dev": "nodemon --watch 'src/**/*.ts' --exec ts-node src/server.ts",
+"build": "tsc",
+"start": "node dist/server.js"
+}
+
+in the .env file, define the 
+PORT=
+DB_USER=
+DB_HOST=
+DB_DATABASE=
+DB_PORT=
+DB_PASSWORD=
+
+create src folder
