@@ -6,6 +6,9 @@ code .
         Install dependencies
 npm i express cors zod prisma @prisma/client
 npm i -D typescript ts-node-dev @types/node @types/express
+npm install dotenv pg joi
+npm install -D @types/node @types/pg @types/joi
+
 
          create a tsconfig.json file
 {
@@ -38,3 +41,17 @@ DB_PORT=
 DB_PASSWORD=
 
 create src folder
+
+- create server.ts file to start the server 
+
+- create app.ts file for the express app, middleware and routes
+
+- create db.ts file for for DB access
+
+- create routes folder then product.routes.ts to handle specific routes
+
+- create controllers folder then product.controller.ts file to handle CRUD operations
+
+- create validation folder then product.schema.ts file for Joi schemas create & update
+
+- create middleware folder then errorHandler.ts to handle errors
