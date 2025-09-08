@@ -1,11 +1,18 @@
-import app from './app';
-import dotenv from 'dotenv';
-dotenv.config();
+// src/server.ts
+import express from "express";
+import bodyParser from "body-parser";
+import productRoutes from "./routes/products.routes";
 
+const app = express();
+const port = 3000;
 
-const PORT = process.env.PORT ? Number(process.env.PORT) : 3000;
+// Middleware
+app.use(bodyParser.json());
 
+// Routes
+app.use("/api", productRoutes);
 
-app.listen(PORT, () => {
-    console.log(`Server listening on http://localhost:${PORT}`);
+// Server
+app.listen(port, () => {
+  console.log(`✅ Server running at http://localhost:${port}`);
 });
