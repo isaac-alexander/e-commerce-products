@@ -1,18 +1,25 @@
 // src/server.ts
 import express from "express";
-import bodyParser from "body-parser";
+import cors from "cors";
+import errorHandler from "./middleware/errorHandler";
 import productRoutes from "./routes/products.routes";
+import createProductTable from "./data/createProductTable";
 
 const app = express();
-const port = 3000;
+
+app.use(cors());
+app.use(express.json());
 
 // Middleware
-app.use(bodyParser.json());
+app.use(errorHandler);
 
 // Routes
 app.use("/api", productRoutes);
 
+createProductTable();
+
 // Server
-app.listen(port, () => {
-  console.log(`✅ Server running at http://localhost:${port}`);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`✅ Server running at http://localhost:${PORT}`);
 });
