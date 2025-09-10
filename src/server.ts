@@ -1,4 +1,5 @@
-// src/server.ts
+// src/server.ts as the entry point to start the app.
+
 import express from "express";
 import cors from "cors";
 import errorHandler from "./middleware/errorHandler";
