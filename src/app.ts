@@ -1,4 +1,4 @@
-// express app, middlewares and routes
+// handles the apllication seup files, express app, middlewares and routes
 import express from 'express';
 import cors from 'cors';
 import productRouter from './routes/products.routes';
