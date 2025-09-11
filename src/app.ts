@@ -1,7 +1,6 @@
-// handles the apllication seup files, express app, middlewares and routes
+// handles the apllication setup files, express app, middlewares and routes
 import express from 'express';
 import cors from 'cors';
-import productRouter from './routes/products.routes';
 import errorHandler from "./middleware/errorHandler";
 
 
@@ -12,8 +11,6 @@ app.use(express.json());
 
 app.get('/', (_req, res) => res.json({ status: 'ok', service: 'products-api' }));
 
-
-app.use('/api/products', productRouter);
 
 
 app.use(errorHandler);
