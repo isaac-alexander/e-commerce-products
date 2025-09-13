@@ -1,26 +1,15 @@
-// src/server.ts as the entry point to start the app.
-
-import express from "express";
-import cors from "cors";
-import errorHandler from "./middleware/errorHandler";
-import productRoutes from "./routes/products.routes";
+// src/server.ts only starts listening and runs DB setup (createProductTable()).
+import dotenv from "dotenv";
+import app from "./app";
 import createProductTable from "./data/createProductTable";
 
-const app = express();
+dotenv.config();
 
-app.use(cors());
-app.use(express.json());
+const PORT = process.env.PORT || 3000;
 
-// Middleware
-app.use(errorHandler);
-
-// Routes
-app.use("/api", productRoutes);
-
+// Ensure products table exists before starting
 createProductTable();
 
-// Server
-const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`✅ Server running at http://localhost:${PORT}`);
 });
