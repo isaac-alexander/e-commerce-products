@@ -55,3 +55,21 @@ create src folder
 - create validation folder then product.schema.ts file for Joi schemas create & update
 
 - create middleware folder then errorHandler.ts to handle errors
+
+
+#######################################################
+
+Swagger
+
+install dependencies
+npm init -y
+
+npm install --save-dev swagger-typescript-api
+
+npm install swagger-autogen swagger-ui-express express @types/express @types/swagger-ui-express
+
+CREATE A swagger.json file
+
+in the tsconfig file, add 
+ "skipLibCheck": true,
+ "resolveJsonModule": true
