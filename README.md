@@ -82,3 +82,25 @@ PUT /api/products/:id
 Delete a Product
 
 DELETE /api/products/:id
+ ```
+#### Testing with Swagger
+Start your server with:
+  npm run dev
+
+Open Swagger UI in your browser:
+  http://localhost:3000/docs
+
+You’ll see a list of all API endpoints:
+
+POST /api/products - to create a product
+
+GET /api/products - to get all products
+
+GET /api/products/{id} - get one product
+
+PUT /api/products/{id} - update product
+
+DELETE /api/products/{id} - delete product
+
+Click on any endpoint - Try it out - fill in the request body - click Execute.
+You’ll see both the request sent and the server response below it.
