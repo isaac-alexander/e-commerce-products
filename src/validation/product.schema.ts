@@ -5,8 +5,8 @@ import Joi from "joi";
 export const createProductSchema = Joi.object({
     name: Joi.string().required(),      // must be a string, cannot be empty
     price: Joi.number().required(),     // must be a number
-    description: Joi.string().allow(""), // optional (can be empty string)
-    image: Joi.string().allow(""),      // optional (can be empty string)
+    description: Joi.string().allow("").default(""), // optional (can be empty string)
+    image: Joi.string().allow("").default(""),      // optional (can be empty string)
     category: Joi.string().required(),  // must be a string, cannot be empty
 });
 
