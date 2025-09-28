@@ -73,3 +73,28 @@ CREATE A swagger.json file
 in the tsconfig file, add 
  "skipLibCheck": true,
  "resolveJsonModule": true
+
+ ##### Testing apis with Bruno or postman 
+
+Start your server with:
+  npm run dev
+
+
+1. POST - to create a product - http://localhost:3000/api/products
+header KEY: Content-Type  VALUE: application/json
+body - JSON
+        {
+  "name",
+  "price",
+  "description",
+  "image",
+  "category"
+}
+
+2. GET /api/products - to get all products
+
+3. GET /api/products/{id} - get one product
+
+4. PUT /api/products/{id} - update product
+
+5. DELETE /api/products/{id} - delete product
