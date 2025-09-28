@@ -64,23 +64,58 @@ export async function updateProduct(req: Request, res: Response) {
         const { error, value } = updateProductSchema.validate(req.body);
         if (error) return res.status(400).json({ message: error.message });
 
-        // Update query
-        const result = await pool.query(
-            `UPDATE products 
-       SET name = $1, price = $2, description = $3, image = $4, category = $5, updated_at = NOW()
-       WHERE id = $6
-       RETURNING *`,
-            [
-                value.name || null,
-                value.price || null,
-                value.description || null,
-                value.image || null,
-                value.category || null,
-                id,
-            ]
-        );
+        // Build dynamic query
+        const fields: string[] = [];
+        const values: any[] = [];
+        let idx = 1;
 
-        if (result.rowCount === 0) return res.status(404).json({ message: "Product not found" });
+        if (value.name !== undefined) {
+            fields.push(`name = $${idx++}`);
+            values.push(value.name);
+        }
+
+        if (value.price !== undefined) {
+            fields.push(`price = $${idx++}`);
+            values.push(value.price);
+        }
+
+        if (value.description !== undefined) {
+            fields.push(`description = $${idx++}`);
+            values.push(value.description);
+        }
+
+        if (value.image !== undefined) {
+            fields.push(`image = $${idx++}`);
+            values.push(value.image);
+        }
+
+        if (value.category !== undefined) {
+            fields.push(`category = $${idx++}`);
+            values.push(value.category);
+        }
+
+        // Always update the timestamp
+        fields.push(`updated_at = NOW()`);
+
+        if (fields.length === 1) {
+            return res.status(400).json({ message: "No fields provided for update" });
+        }
+
+        // Add id at the end
+        values.push(id);
+
+        const query = `
+            UPDATE products 
+            SET ${fields.join(", ")}
+            WHERE id = $${idx}
+            RETURNING *
+        `;
+
+        const result = await pool.query(query, values);
+
+        if (result.rowCount === 0) {
+            return res.status(404).json({ message: "Product not found" });
+        }
 
         res.json(result.rows[0]);
     } catch (err: any) {
@@ -88,6 +123,7 @@ export async function updateProduct(req: Request, res: Response) {
         res.status(500).json({ message: "Server error" });
     }
 }
+
 
 // Delete a product
 export async function deleteProduct(req: Request, res: Response) {
