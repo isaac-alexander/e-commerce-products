@@ -47,10 +47,12 @@ Run the server - npm run dev
 API Endpoints
 
 URL: http://localhost:3000/api/products
+```
+#### Testing with Bruno or Postman
 
-Create a Product
+## Create a Product
 
-POST /api/products
+POST  http://localhost:3000/api/products
 
 header - Content-Type: application/json
 body - JSON
@@ -62,28 +64,30 @@ body - JSON
   "category": "Electronics"
 }
 
-Get All Products
+## Get All Products
 
-GET /api/products
+GET http://localhost:3000/api/products
 
-Get One Product
+## Get One Product By ID
 
-GET /api/products/:id
+GET http://localhost:3000/api/products/id
 
-Update a Product
 
-PUT /api/products/:id
+## Update a Product
+
+PUT http://localhost:3000/api/products/id
 
 {
   "price": 999.99,
   "description": "Discounted high-performance laptop"
 }
 
-Delete a Product
+## Delete a Product
 
-DELETE /api/products/:id
- ```
+DELETE http://localhost:3000/api/products/id
+
 #### Testing with Swagger
+```bash
 Start your server with:
   npm run dev
 
