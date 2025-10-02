@@ -1,0 +1,47 @@
+1. Add User Authentication (Login/Sign Up)
+
+-Users must register (sign up) and log in.
+
+-Use a User model (table in PostgreSQL).
+
+-Users have roles: admin or customer.
+
+2. Role-Based Permissions
+
+Admin can:
+-Create products
+-Update products
+-Delete products
+
+Customer can:
+-Get all products
+-Get a product by ID
+
+___________________________________________________
+Steps
+
+Step 1. Create User Table in PostgreSQL
+-Add a new users table with:
+-id (primary key)
+-name
+-email (unique)
+-password (hashed, crypto)
+-role (either "admin" or "customer")
+
+Step 2. Create Authentication Endpoints
+
+-POST /api/auth/signup → create a new user (default role = customer).
+-POST /api/auth/login → log in user and return a JWT token.
+
+Step 3. Protect Routes with Middleware
+-Use JWT (JSON Web Token) to secure endpoints.
+-Only logged-in users can access products API.
+
+Step 4. Add Role Authorization
+-Middleware checks the user’s role from JWT:
+-If admin - allow create, update, delete.
+-If customer - allow only (get all, get by ID).
+
+Step 5. Update Swagger / Bruno
+-Add login & signup endpoints.
+-For product endpoints, you must add Authorization header with the JWT token.
