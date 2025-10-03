@@ -26,6 +26,9 @@ Step 1. Create User Table in PostgreSQL
 -name
 -email (unique)
 -password (hashed, crypto)
+npm install bcryptjs
+npm install --save-dev @types/bcryptjs
+
 -role (either "admin" or "customer")
 
 Step 2. Create Authentication Endpoints
@@ -35,6 +38,9 @@ Step 2. Create Authentication Endpoints
 
 Step 3. Protect Routes with Middleware
 -Use JWT (JSON Web Token) to secure endpoints.
+npm install jsonwebtoken
+npm install --save-dev @types/jsonwebtoken
+
 -Only logged-in users can access products API.
 
 Step 4. Add Role Authorization
