@@ -6,6 +6,7 @@ import swaggerUi from "swagger-ui-express";
 import fs from "fs";
 import path from "path";
 import productRoutes from "./routes/products.routes";
+import authRoutes from "./routes/auth.routes";
 
 const app = express();
 app.use(cors());
@@ -16,6 +17,7 @@ app.get("/", (_req, res) => res.json({ status: "ok", service: "products-api" }))
 
 // Product routes
 app.use("/api/products", productRoutes);
+app.use("/api/auth", authRoutes);
 
 // Swagger docs
 const swaggerPath = path.join(process.cwd(), "swagger.json");
