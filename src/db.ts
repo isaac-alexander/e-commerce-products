@@ -11,13 +11,26 @@ const pool = new Pool({
     port: Number(process.env.DB_PORT) || 5432,
 });
 
-// Test connection
+// Test connection + ensure users table exists
 pool.connect()
-    .then(() => {
-        console.log(" Connected to PostgreSQL!");
+    .then(async (client) => {
+        console.log("✅ Connected to PostgreSQL!");
+
+        await client.query(`
+            CREATE TABLE IF NOT EXISTS users (
+                id SERIAL PRIMARY KEY,
+                username VARCHAR(100) NOT NULL,
+                email VARCHAR(100) UNIQUE NOT NULL,
+                password TEXT NOT NULL,
+                role VARCHAR(20) DEFAULT 'customer',
+                created_at TIMESTAMP DEFAULT NOW()
+            )
+        `);
+
+        client.release();
     })
     .catch((err) => {
-        console.error(" Connection error:", err);
+        console.error("❌ Connection error:", err);
     });
 
 export default pool;
