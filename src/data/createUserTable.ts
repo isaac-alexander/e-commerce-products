@@ -1,6 +1,7 @@
 //Creates the users table if it doesn't exist
 import pool from "../db";
 
+// Function to create users table if it doesn't exist
 const createUserTable = async () => {
     const query = `
     CREATE TABLE IF NOT EXISTS users (
