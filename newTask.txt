@@ -51,3 +51,6 @@ Step 4. Add Role Authorization
 Step 5. Update Swagger / Bruno
 -Add login & signup endpoints.
 -For product endpoints, you must add Authorization header with the JWT token.
+
+___________________________________________________
+Error from Bruno
