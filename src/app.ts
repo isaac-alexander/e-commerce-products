@@ -9,10 +9,14 @@ import productRoutes from "./routes/products.routes";
 import authRoutes from "./routes/auth.routes";
 
 const app = express();
+
+// Enable Cross-Origin requests
 app.use(cors());
+
+// Parse JSON bodie
 app.use(express.json());
 
-// check route
+// Test route to check if server is running
 app.get("/", (_req, res) => res.json({ status: "ok", service: "products-api" }));
 
 // Product routes
