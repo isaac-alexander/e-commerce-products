@@ -3,6 +3,7 @@ import { Pool } from "pg";
 
 dotenv.config();
 
+// PostgreSQL connection
 const pool = new Pool({
     user: process.env.DB_USER,
     host: process.env.DB_HOST,
@@ -30,7 +31,7 @@ pool.connect()
         client.release();
     })
     .catch((err) => {
-        console.error("❌ Connection error:", err);
+        console.error(" Connection error:", err);
     });
 
 export default pool;
