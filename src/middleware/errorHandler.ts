@@ -4,6 +4,7 @@ import { Request, Response, NextFunction } from "express";
 const errorHandler = (err: any, req: Request, res: Response, _next: NextFunction) => {
     console.error("Error stack:", err.stack);
 
+        // Sends error response
     res.status(500).json({
         status: 500,
         message: "Something went wrong",
