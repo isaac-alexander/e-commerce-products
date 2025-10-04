@@ -1,5 +1,6 @@
 import pool from "../db";
 
+// Function to create the products table
 const createProductTable = async () => {
   const query = `
     CREATE TABLE IF NOT EXISTS products (
