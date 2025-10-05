@@ -5,12 +5,12 @@ import { authenticate, authorizeAdmin } from "../middleware/auth.middleware";
 const router = Router();
 
 // Customers and Admin
-router.get("/products", authenticate, getAllProducts);
-router.get("/products/:id", authenticate, getProductById);
+router.get("/", authenticate, getAllProducts);
+router.get("/:id", authenticate, getProductById);
 
 // Admins
 router.post("/products", authenticate, authorizeAdmin, createProduct);
-router.put("/products/:id", authenticate, authorizeAdmin, updateProduct);
-router.delete("/products/:id", authenticate, authorizeAdmin, deleteProduct);
+router.put("/:id", authenticate, authorizeAdmin, updateProduct);
+router.delete("/:id", authenticate, authorizeAdmin, deleteProduct);
 
 export default router;
