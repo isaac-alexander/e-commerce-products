@@ -53,4 +53,4 @@ Step 5. Update Swagger / Bruno
 -For product endpoints, you must add Authorization header with the JWT token.
 
 ___________________________________________________
-Error from Bruno
+Fixed bruno error.. Continue with step 4 Test for customers
