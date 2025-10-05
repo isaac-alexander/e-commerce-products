@@ -1,21 +1,22 @@
 import dotenv from "dotenv";
 import { Pool } from "pg";
+import { DB_USER, DB_HOST, DB_DATABASE, DB_PASSWORD, DB_PORT } from "./config";
 
 dotenv.config();
 
 // PostgreSQL connection
 const pool = new Pool({
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_DATABASE,
-    password: process.env.DB_PASSWORD,
-    port: Number(process.env.DB_PORT) || 5432,
+    user: DB_USER,
+    host: DB_HOST,
+    database: DB_DATABASE,
+    password: DB_PASSWORD,
+    port: DB_PORT,
 });
 
 // Test connection + ensure users table exists
 pool.connect()
     .then(async (client) => {
-        console.log("✅ Connected to PostgreSQL!");
+        console.log("Connected to PostgreSQL!");
 
         await client.query(`
             CREATE TABLE IF NOT EXISTS users (
