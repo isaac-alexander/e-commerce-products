@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { createProduct, getAllProducts, getProductById, updateProduct, deleteProduct } from "../controllers/product.controller";
-import { authenticate, authorizeAdmin } from "../middleware/auth.middleware";
+import { authenticate, isAdmin  } from "../middleware/auth.middleware";
 
 const router = Router();
 
@@ -9,8 +9,8 @@ router.get("/", authenticate, getAllProducts);
 router.get("/:id", authenticate, getProductById);
 
 // Admins
-router.post("/products", authenticate, authorizeAdmin, createProduct);
-router.put("/:id", authenticate, authorizeAdmin, updateProduct);
-router.delete("/:id", authenticate, authorizeAdmin, deleteProduct);
+router.post("/products", authenticate, isAdmin , createProduct);
+router.put("/:id", authenticate, isAdmin , updateProduct);
+router.delete("/:id", authenticate, isAdmin , deleteProduct);
 
 export default router;
