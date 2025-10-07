@@ -31,7 +31,7 @@ export function authenticate(req: Request, res: Response, next: NextFunction) {
 }
 
 // Middleware to allow only Admins
-export function authorizeAdmin(req: Request, res: Response, next: NextFunction) {
+export function isAdmin (req: Request, res: Response, next: NextFunction) {
   const user = (req as any).user as TokenData;
   if (user.role !== "admin") {
     return res.status(403).json({ message: "Access denied. Admins only." });
