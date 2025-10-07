@@ -1,9 +1,9 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Products API",
-        "version": "1.0.0",
-        "description": "CRUD API for products (name, price, description, image, category)"
+        "title": "E-Commerce Products API",
+        "version": "1.1.0",
+        "description": "API for product management and user authentication (with JWT)"
     },
     "servers": [
         {
@@ -12,12 +12,83 @@
         }
     ],
     "paths": {
+        "/api/auth/signup": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Register a new user",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SignupInput"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User registered successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Missing fields or user already exists"
+                    }
+                }
+            }
+        },
+        "/api/auth/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login existing user",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginInput"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login successful, returns JWT token",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LoginResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Invalid credentials"
+                    }
+                }
+            }
+        },
         "/api/products": {
             "get": {
                 "tags": [
                     "Products"
                 ],
-                "summary": "Get all products",
+                "summary": "Get all products (Requires Auth)",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Array of products",
@@ -38,7 +109,12 @@
                 "tags": [
                     "Products"
                 ],
-                "summary": "Create a product",
+                "summary": "Create a new product (Requires Auth)",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -51,7 +127,7 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Created product",
+                        "description": "Product created successfully",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -61,7 +137,7 @@
                         }
                     },
                     "400": {
-                        "description": "Bad request (validation error)"
+                        "description": "Bad request"
                     }
                 }
             }
@@ -82,10 +158,15 @@
                 "tags": [
                     "Products"
                 ],
-                "summary": "Get one product by id",
+                "summary": "Get one product by ID (Requires Auth)",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "A product",
+                        "description": "Product details",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -103,7 +184,12 @@
                 "tags": [
                     "Products"
                 ],
-                "summary": "Update a product",
+                "summary": "Update a product (Requires Auth)",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -125,9 +211,6 @@
                             }
                         }
                     },
-                    "400": {
-                        "description": "Bad request"
-                    },
                     "404": {
                         "description": "Product not found"
                     }
@@ -137,10 +220,15 @@
                 "tags": [
                     "Products"
                 ],
-                "summary": "Delete a product",
+                "summary": "Delete a product (Requires Auth)",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
                 "responses": {
                     "204": {
-                        "description": "Deleted (no content)"
+                        "description": "Deleted successfully"
                     },
                     "404": {
                         "description": "Product not found"
@@ -156,7 +244,6 @@
                 "properties": {
                     "id": {
                         "type": "integer",
-                        "format": "int64",
                         "example": 1
                     },
                     "name": {
@@ -165,12 +252,11 @@
                     },
                     "price": {
                         "type": "number",
-                        "format": "double",
                         "example": 499.99
                     },
                     "description": {
                         "type": "string",
-                        "example": "Good laptop"
+                        "example": "High-end laptop"
                     },
                     "image": {
                         "type": "string",
@@ -188,13 +274,7 @@
                         "type": "string",
                         "format": "date-time"
                     }
-                },
-                "required": [
-                    "id",
-                    "name",
-                    "price",
-                    "category"
-                ]
+                }
             },
             "ProductInput": {
                 "type": "object",
@@ -203,8 +283,7 @@
                         "type": "string"
                     },
                     "price": {
-                        "type": "number",
-                        "format": "double"
+                        "type": "number"
                     },
                     "description": {
                         "type": "string"
@@ -221,6 +300,93 @@
                     "price",
                     "category"
                 ]
+            },
+            "SignupInput": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "John Doe"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "john@example.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "example": "password123"
+                    },
+                    "role": {
+                        "type": "string",
+                        "example": "customer"
+                    }
+                },
+                "required": [
+                    "name",
+                    "email",
+                    "password"
+                ]
+            },
+            "LoginInput": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "example": "john@example.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "example": "password123"
+                    }
+                },
+                "required": [
+                    "email",
+                    "password"
+                ]
+            },
+            "User": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "John Doe"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "john@example.com"
+                    },
+                    "role": {
+                        "type": "string",
+                        "example": "customer"
+                    }
+                }
+            },
+            "LoginResponse": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "Login successful"
+                    },
+                    "token": {
+                        "type": "string",
+                        "example": "eyJhbGciOi..."
+                    },
+                    "user": {
+                        "$ref": "#/components/schemas/User"
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
             }
         }
     }
