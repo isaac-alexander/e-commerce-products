@@ -9,7 +9,7 @@ router.get("/", authenticate, getAllProducts);
 router.get("/:id", authenticate, getProductById);
 
 // Admins
-router.post("/products", authenticate, isAdmin , createProduct);
+router.post("/", authenticate, isAdmin , createProduct);
 router.put("/:id", authenticate, isAdmin , updateProduct);
 router.delete("/:id", authenticate, isAdmin , deleteProduct);
 
