@@ -52,10 +52,3 @@ Step 5. Update Swagger / Bruno
 -Add login & signup endpoints.
 -For product endpoints, you must add Authorization header with the JWT token.
 
-___________________________________________________
-WHAT TO DO:
-
-FIX ISSUE WITH SWAGGER WHEN SIGNING UP
-TEST PRODUCT ENDPOINTS
-CREATE ADMIN AND CUSTOMER PROFILE USING SWAGGER
-TEST CREATE GET PUT AND DELETE WITH ADMIN AND CUSTOMER
