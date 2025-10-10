@@ -32,6 +32,12 @@ CREATE TABLE IF NOT EXISTS users (
   name TEXT NOT NULL,
   email TEXT UNIQUE NOT NULL,
   password TEXT NOT NULL,
-  role TEXT NOT NULL CHECK (role IN ('admin', 'customer')),
+  role TEXT NOT NULL,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
+
+ALTER TABLE users DROP CONSTRAINT IF EXISTS users_role_check;
+
+AlTER TABLE users
+ADD CONSTRAINT user_role_check
+CHECK (LOWER(role) IN ('admin', 'customer'));
