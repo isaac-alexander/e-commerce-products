@@ -28,12 +28,15 @@ export async function signup(req: Request, res: Response) {
         // Encrypt/ Hash the password before saving
         const hashedPassword = await bcrypt.hash(password, 10);
 
+         // Convert role to lowercase
+        const lowerRole = (role || "customer").toLowerCase();
+
         // Save the new user to the database
         const result = await pool.query(
             `INSERT INTO users (name, email, password, role)
        VALUES ($1, $2, $3, $4)
-       RETURNING id, name, email, role`,
-            [name, email, hashedPassword, role || "customer"] // default role = customer
+       RETURNING id, name, email, role, created_at`,
+            [name, email, hashedPassword, lowerRole || "customer"] // default role = customer
         );
 
         // Return the saved user info (except password)
